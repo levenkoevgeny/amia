@@ -1,0 +1,71 @@
+<div>
+    <div class="text-center"><b>Май</b></div>
+    <div>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">Пн</th>
+                <th scope="col" class="text-center">Вт</th>
+                <th scope="col" class="text-center">Ср</th>
+                <th scope="col" class="text-center">Чт</th>
+                <th scope="col" class="text-center">Пт</th>
+                <th scope="col" class="text-center">Сб</th>
+                <th scope="col" class="text-center">Вс</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for day in date_list_may %}
+                    {% if day.is_sunday %}
+                        <td class="text-center"><button type="button" class="btn btn-danger date_picker" disabled>{{ day.date_appointment|date:'d' }}</button></td>
+                        </tr>
+                        <tr>
+                    {% elif day.is_holiday %}
+                        <td class="text-center"><button type="button" class="btn btn-danger date_picker" disabled>{{ day.date_appointment|date:'d' }}</button></td>
+                    {% else %}
+                        {% if day.day_of_month_number == 0 %}
+                            <td class="text-center"><button type="button" class="btn btn-light date_picker" disabled>{{ day.date_appointment|date:'d' }}</button></td>
+                        {% else %}
+                            <td class="text-center"><button type="button" class="btn btn-light date_picker date_picker_enabled" value="{{ day.id }}"><b>{{ day.date_appointment|date:'d' }}</b></button></td>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <div class="text-center"><b>Июнь</b></div>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">Пн</th>
+                <th scope="col" class="text-center">Вт</th>
+                <th scope="col" class="text-center">Ср</th>
+                <th scope="col" class="text-center">Чт</th>
+                <th scope="col" class="text-center">Пт</th>
+                <th scope="col" class="text-center">Сб</th>
+                <th scope="col" class="text-center">Вс</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for day in date_list_june %}
+                    {% if day.is_sunday %}
+                        <td class="text-center"><button type="button" class="btn btn-danger date_picker" disabled>{{ day.date_appointment|date:'d' }}</button></td>
+                        </tr><tr>
+                    {% elif day.is_holiday %}
+                        <td class="text-center"><button type="button" class="btn btn-danger date_picker" disabled>{{ day.date_appointment|date:'d' }}</button></td>
+                    {% else %}
+                        {% if day.day_of_month_number == 0 %}
+                            <td class="text-center"><button type="button" class="btn btn-light date_picker" disabled>{{ day.date_appointment|date:'d' }}</button></td>
+                        {% else %}
+                            <td class="text-center"><button type="button" class="btn btn-light date_picker date_picker_enabled" value="{{ day.id }}"><b>{{ day.date_appointment|date:'d' }}</b></button></td>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

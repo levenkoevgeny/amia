@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    {% load static %}
+    {% load widget_tweaks %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'appointment/css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'appointment/css/fontawesome-free-5.15.3-web/css/all.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Панель управления</title>
+</head>
+<body>
+<div class="container-fluid">
+    {% include 'appointment/dashboard/nav.html' %}
+    <br>
+    <div class="container">
+                <form action="{% url 'appointment:dashboard_dates' %}" method="get">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="mb-3">
+                                <label>ФИО</label>
+                                {% render_field filter.form.date_appointment class+="form-control"  %}
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="mb-3">
+                                <label>Является выходным</label>
+                                {% render_field filter.form.is_holiday class+="form-control"  %}
+                            </div>
+                        </div>
+                     </div>
+                    <button type="submit" class="btn btn-outline-dark">Поиск</button>&nbsp;&nbsp;<a href="{% url 'appointment:dashboard_dates' %}" class="btn btn-outline-dark">Сбросить фильтр</a>
+                </form>
+        <br>
+        {#    <button type="button" class="btn btn-danger">Очистить всю запись!!!</button><br><br>#}
+        {% if list %}
+            Найдено записей - {{ filter.qs|length }}
+            <br>
+            <br>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">№ п/п</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">День недели</th>
+                    <th scope="col">Выходной</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.date_appointment }}</td>
+                        <td>{{ item.day_of_week }}</td>
+                        <td>
+                            {% if item.is_holiday %}
+                                <i style="color: darkseagreen;" class="far fa-check-circle fa-lg"></i>
+                            {% else %}
+                                <i style="color: firebrick;" class="fas fa-times fa-lg"></i>
+                            {% endif %}
+
+                        </td>
+                        <td><a onclick="window.open('{% url 'appointment:date_for_appointment_update' item.id %}','popup','width=300,height=300'); return false;"
+                               class="btn btn-success">Редактировать</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </table>
+        {% else %}
+            Записей не найдено
+        {% endif %}
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+-->
+</body>
+</html>
