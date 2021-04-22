@@ -45,6 +45,7 @@ def get_dates(request):
 
         if date_app.day_of_week_number == 6:
             date_app.is_sunday = True
+            date_app.is_holiday = True
         if date_app.day_of_week_number == 5:
             date_app.is_holiday = True
         if date_app.date_appointment.month != 5:
@@ -70,6 +71,7 @@ def get_dates(request):
             date_app.day_of_month_number = 0
         if date_app.day_of_week_number == 6:
             date_app.is_sunday = True
+            date_app.is_holiday = True
         if date_app.day_of_week_number == 5:
             date_app.is_holiday = True
         if date_app.date_appointment.month != 6:
